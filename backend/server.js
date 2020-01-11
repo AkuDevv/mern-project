@@ -25,12 +25,14 @@ const filieresRouter = require('./routes/filieres');
 const professorsRouter = require('./routes/professors');
 const studentsRouter = require('./routes/students');
 const subjectsRouter = require('./routes/subjects');
+const notesRouter = require('./routes/notes');
 
 app.use('/admins',adminsRouter);
 app.use('/filieres',filieresRouter);
 app.use('/professors',professorsRouter);
 app.use('/students',studentsRouter);
 app.use('/subjects',subjectsRouter);
+app.use('/notes',notesRouter);
 
 app.listen(port, ()=> {
     console.log(`Server is running on port : ${port}`);

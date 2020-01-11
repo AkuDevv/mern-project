@@ -4,59 +4,60 @@ import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.css";
 import axios from "axios";
 
-class EditFil extends Component {
+class UpdateNote extends Component {
   constructor(props) {
     super(props);
 
-    this.onChangeName = this.onChangeName.bind(this);
+    this.onChangeName = this.onChangeNote.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      nom: ""
+      note: ""
     };
   }
-
-  componentDidMount() {
-    console.log(this.props.match.params.id);
-    axios
-      .get("http://localhost:5000/filieres/" + this.props.match.params.id)
-      .then(res => {
-        this.setState({
-          nom: res.data.nom,
-          subjects: res.data.subjects
-        });
-        console.log(res.data);
-      });
-  }
-
-  onChangeName(e) {
+  /*
+    componentDidMount(){
+                axios.get('http://localhost:5000/notes/findone/'+this.props.match.params.stid+"/"+this.props.match.params.subid)
+                .then(res=>{
+                    this.setState({
+                        note : res.data.note,
+                    })
+            })
+            .catch(err=>{console.log(err)});
+        }
+*/
+  onChangeNote(e) {
     this.setState({
-      nom: e.target.value
+      note: e.target.value
     });
   }
 
   onSubmit(e) {
     e.preventDefault();
 
-    const filiere = {
-      nom: this.state.nom,
-      subjects: this.state.subjects
+    const note = {
+      student: this.props.match.params.stid,
+      subject: this.props.match.params.subid,
+      note: this.state.note
     };
 
-    console.log(filiere);
+    console.log(note);
 
     axios
       .post(
-        "http://localhost:5000/filieres/update/" + this.props.match.params.id,
-        filiere
+        "http://localhost:5000/notes/update/" +
+          this.props.match.params.stid +
+          "/" +
+          this.props.match.params.subid,
+        note
       )
       .then(res => {
         alert(res.data);
       })
-      .catch(() => alert("erreur de modification !"));
+      .catch(() => alert("Erreur de modification !"));
 
     this.setState({
-      nom: ""
+      note: ""
     });
     //window.location = '/';
   }
@@ -67,19 +68,18 @@ class EditFil extends Component {
         <MDBContainer>
           <MDBRow center={true}>
             <MDBCol md="8">
-              <h2>Editer une filière</h2>
+              <h2>Editer une note</h2>
               <br />
               <form onSubmit={this.onSubmit}>
                 <div className="grey-text">
                   <div className="form-group">
-                    <label>Nom : </label>
+                    <label>Note : </label>
                     <input
                       className="form-control"
-                      value={this.state.nom}
+                      value={this.state.name}
                       onChange={this.onChangeName}
                     />
                   </div>
-
                   <div className="text-center py-4 mt-3">
                     <MDBBtn color="primary" type="submit">
                       Editer
@@ -95,4 +95,4 @@ class EditFil extends Component {
   }
 }
 
-export default EditFil;
+export default UpdateNote;

@@ -19,9 +19,6 @@ const studentSchema = new Schema({
         type : Number,
         required : true
     },
-    note : {
-        type : Number
-    },
     filiere : {
         type : mongoose.Schema.Types.ObjectId,
         ref : 'Filiere',

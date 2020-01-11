@@ -24,7 +24,9 @@ class NavBar extends Component {
                             <li className="nav-item">
                                 <Link to="/filliere" className="nav-link App"><div style={{color:"cyan"}}>Filières</div></Link>
                             </li>
-
+                            <li className="nav-item">
+                                <Link to="/note" className="nav-link App"><div style={{color:"cyan"}}>Notes</div></Link>
+                            </li>
                         </ul>
                     </div>
                         <span className="navbar-text">

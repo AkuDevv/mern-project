@@ -13,7 +13,6 @@ router.route('/add').post((req,res)=>{
     const birthdate = Date.parse(req.body.birthdate);
     const email = req.body.email;
     const tel = Number(req.body.tel);
-    const note = Number(req.body.note);
     const filiere = req.body.filiere;
 
     const newStudent = new Student({
@@ -21,7 +20,6 @@ router.route('/add').post((req,res)=>{
         birthdate,
         email,
         tel,
-        note,
         filiere,
     });
 
@@ -32,6 +30,12 @@ router.route('/add').post((req,res)=>{
 
 router.route('/:id').get((req,res)=>{
     Student.findById(req.params.id)
+        .then(students=>res.json(students))
+        .catch(err=>res.status(400).json('Error: '+err));
+});
+
+router.route('/nom/:name').get((req,res)=>{
+    Student.findOne({name : req.params.name})
         .then(students=>res.json(students))
         .catch(err=>res.status(400).json('Error: '+err));
 });
@@ -48,7 +52,6 @@ router.route('/update/:id').post((req,res)=>{
             students.name = req.body.name;
             students.birthdate = req.body.birthdate;
             students.email = req.body.email;
-            students.note = req.body.note;
             students.tel = req.body.tel;
             students.filiere = req.body.filiere;
 
